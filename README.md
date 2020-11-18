@@ -1,6 +1,14 @@
-# frontend-test
+# frontend-test (repository for eFIshery FE Test --cipto)
 
 ## Project setup
+```
+clone repository
+git clone https://github.com/cipto15001/EFishery-Test.git
+```
+```
+move to repo directory
+cd EFishery-Test
+```
 ```
 npm install
 ```
