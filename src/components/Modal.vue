@@ -41,7 +41,7 @@
               <div class="field">
                 <div class="control">
                   <label>
-                    <input v-model="form.price" class="input" type="text" placeholder="harga"/>
+                    <money v-model="form.price"></money>
                   </label>
                 </div>
               </div>

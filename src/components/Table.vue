@@ -1,6 +1,10 @@
 <template>
   <section>
     <div id="app">
+      <loading :active.sync="isLoading"
+               :can-cancel="false"
+               :is-full-page="true">
+      </loading>
       <div v-if="$vssWidth >= 601" class="card">
         <div class="table__header">
           <div>
@@ -21,6 +25,9 @@
             </label>
             <label v-if="query.search_column === 'tgl_parsed'" >
               <date-picker v-model="query.search" type="date"  value-type="format" placeholder="Masukan kata kunci"></date-picker>
+            </label>
+            <label v-else-if="query.search_column === 'price'">
+              <money v-model="query.search"></money>
             </label>
             <label v-else>
               <input v-model="query.search" type="text" class="dv-header-input" placeholder="Masukan kata kunci" :disabled="filtered === true">
@@ -132,6 +139,9 @@
           <label v-if="query.search_column === 'tgl_parsed'" >
             <date-picker v-model="query.search" type="date"  value-type="format" placeholder="Masukan kata kunci"></date-picker>
           </label>
+          <label v-else-if="query.search_column === 'price'">
+            <money v-model="query.search"></money>
+          </label>
           <label v-else>
             <input v-model="query.search" type="text" class="dv-header-input" placeholder="Masukan kata kunci" :disabled="filtered === true">
           </label>
@@ -173,6 +183,8 @@
 
 <script>
 import DatePicker from 'vue2-datepicker'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 import 'vue2-datepicker/index.css'
 import { api } from '@/services/api'
 import Modal from '@/components/Modal.vue'
@@ -192,6 +204,7 @@ export default {
     ChevronRightIcon,
     Modal,
     DatePicker,
+    Loading,
   },
   filters: {
     trimWords(value) {
@@ -200,6 +213,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       posts: [''],
       postsBackup: [''],
       page: 1,
@@ -289,8 +303,10 @@ export default {
       this.createField = value
     },
     getPosts() {
+      this.isLoading = true
       api('list').then((data) => {
         this.posts = data
+        this.isLoading = false
       })
     },
     getArea() {
