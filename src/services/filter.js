@@ -3,16 +3,16 @@ import moment from 'moment'
 
 Vue.filter('formatDate', function (value) {
   if (value) {
-    return moment(String(value)).format(' DD/MM/YYYY hh:mm')
+    return moment(String(value)).format(' DD/MM/YYYY hh:mm:ss')
   } else {
-    return 'Invalid date'
+    return ''
   }
 })
 
 Vue.filter('formatMoney', function (value) {
   if (value) {
     let val = (value / 1).toFixed(2).replace('.', ',')
-    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    return 'Rp ' + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
   } else {
     return 'No Data'
   }
@@ -25,5 +25,12 @@ Vue.filter('capitalizeEach', function (value) {
 
   if (value) {
     return value.split(' ').map(capitalize).join(' ')
+  }
+})
+
+Vue.filter('chunkString', function (value) {
+  if (value) {
+    const string = value.match(new RegExp('.{1,' + 15 + '}', 'g'))
+    return string[0]
   }
 })
