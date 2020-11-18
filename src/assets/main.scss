@@ -1,4 +1,5 @@
 $primary: #23adad;
+$secondary: #FF6347;
 $greenLight: #a1e0e0;
 $greenLight-2: #cbe0dd;
 $greyDark: #2d4848;
@@ -12,6 +13,22 @@ $greyDark: #2d4848;
   font-family: Roboto-Medium;
   src: url(fonts/Roboto-Medium.ttf);
 }
+
+.bg-primary {
+  background: $primary !important;
+  color: white;
+}
+
+.bg-secondary {
+  background: $secondary !important;
+  color: white;
+}
+
+.bg-disable {
+  background: $greenLight-2 !important;
+  color: white;
+}
+
 
 .card {
   border: 1px solid $greyDark;
@@ -107,6 +124,7 @@ ul {
   align-items: center;
   height: 5rem;
   margin: 3rem;
+  padding-left: 0px;
   border-radius: 0.6rem;
   background: #ffffff;
 
@@ -117,7 +135,7 @@ ul {
     justify-content: center;
     align-items: center;
     margin: 0.8rem;
-    font-size: 1.4rem;
+    font-size: 1rem;
     cursor: pointer;
   }
 
@@ -165,21 +183,36 @@ ul {
   justify-content: space-between;
   align-items: center;
 
-  select, input, button {
-    font-family: Roboto-Medium, serif;
-    color: $greyDark;
-    height: 30px;
-    border: none;
-    background: $greenLight;
-    padding: 0 10px;
-    appearance: none;
-    position: relative;
-    z-index: 2;
-    cursor: pointer;
-
-    :focus {
-      outline-color: white;
+  .mx-datepicker {
+    .mx-input-wrapper {
+      margin-right: 5px;
     }
+
+    input {
+      height: 34px;
+    }
+  }
+
+  select, button {
+    border: 1px solid #ccc;
+    font-family: Roboto-Medium, serif;
+    border-radius: 4px;
+    height: 34px;
+    padding: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+    background: white;
+    margin: 4px 4px 4px 0;
+  }
+
+  input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 20px;
+    padding: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 4px 4px 4px 0;
   }
 }
 
@@ -199,5 +232,74 @@ ul {
     top: 10px;
     right: 10px;
     z-index: 1;
+  }
+}
+
+.mobile__view {
+  border: 1px solid $greyDark;
+  font-family: Roboto-Medium, serif;
+  font-size: 10px;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: left;
+
+  .mx-datepicker {
+    width: 150px !important;
+    .mx-input-wrapper {
+      margin-right: 5px;
+    }
+
+    input {
+      height: 34px;
+    }
+  }
+
+  .label {
+    margin: 4px 0;
+    color: $primary;
+  }
+
+  select, button {
+    border: 1px solid #ccc;
+    font-family: Roboto-Medium, serif;
+    border-radius: 4px;
+    height: 34px;
+    padding: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+    background: white;
+    margin: 4px 4px 4px 0;
+  }
+
+  input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 20px;
+    padding: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 4px 4px 4px 0;
+  }
+}
+
+.card__List {
+  padding: 16px;
+  margin: 5px 0;
+  text-align: left;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+
+  &__title {
+    font-weight: bold;
+    font-family: Roboto-Bold, serif;
+    font-size: 14px;
+    color: $primary;
+  }
+
+  &__value {
+    font-weight: lighter;
+    font-family: Roboto-Medium, serif;
+    font-size: 12px;
+    padding: 3px 0;
   }
 }
