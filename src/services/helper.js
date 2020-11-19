@@ -9,8 +9,5 @@ export function dateString(date) {
 }
 
 export function checkEmpty(obj) {
-  return (
-    Object.keys(obj).filter((key) => obj[key] === null || obj[key] === undefined || obj[key] === '')
-      .length === 0
-  )
+  return Object.keys(obj).filter((key) => !obj[key]).length === 0
 }
