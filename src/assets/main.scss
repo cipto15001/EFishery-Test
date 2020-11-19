@@ -29,13 +29,17 @@ $greyDark: #2d4848;
   color: white;
 }
 
+.container {
+  overflow-x: auto;
+}
 
 .card {
   border: 1px solid $greyDark;
-  max-width: 960px;
+  max-width: 90vw;
   margin: 0 auto;
   padding: 20px;
   border-radius: 20px;
+  height: 820px;
 }
 
 .table {
