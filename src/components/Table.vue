@@ -30,72 +30,81 @@
               <money v-model="query.search"></money>
             </label>
             <label v-else>
-              <input v-model="query.search" type="text" class="dv-header-input" placeholder="Masukan kata kunci" :disabled="filtered === true">
+              <input v-model="query.search" type="text" class="dv-header-input" placeholder="Masukan kata kunci" :disabled="filtered === true" maxlength="36">
             </label>
             <button v-if="filtered === false" :class="disabled === true ? 'bg-disable' : 'bg-primary' " :disabled="!query.search && !query.search_column" @click="search">Search</button>
             <button v-else class="bg-secondary" @click="searchCancel">Cancel</button>
           </div>
         </div>
-        <table class="table mobile-optimised">
-          <thead>
-          <tr>
-            <th>
-              <div class="around">
-                UUID
-                <ArrowCircleUpIcon v-if="currentSortDir === 'asc'" size="1.5x" @click="sort('area_kota')"/>
-                <ArrowCircleDownIcon v-else size="1.5x" @click="sort('area_kota')"/>
-              </div>
-            </th>
-            <th>
-              <div class="around">
-                Area Kota
-                <ArrowCircleUpIcon v-if="currentSortDir === 'asc'" size="1.5x" @click="sort('area_kota')"/>
-                <ArrowCircleDownIcon v-else size="1.5x" @click="sort('area_kota')"/>
-              </div>
-            </th>
-            <th>
-              <div class="around">
-                Area Provinsi
-                <ArrowCircleUpIcon v-if="currentSortDir === 'asc'" size="1.5x" @click="sort('area_provinsi')"/>
-                <ArrowCircleDownIcon v-else size="1.5x" @click="sort('area_provinsi')"/>
-              </div>
-            </th>
-            <th>
-              <div class="around">
-                Komoditas
-                <ArrowCircleUpIcon v-if="currentSortDir === 'asc'" size="1.5x" @click="sort('komoditas')"/>
-                <ArrowCircleDownIcon v-else size="1.5x" @click="sort('komoditas')"/>
-              </div>
-            </th>
-            <th><div class="around">
-              Harga (Rp)
-              <ArrowCircleUpIcon v-if="currentSortDir === 'asc'" size="1.5x" @click="sort('price')"/>
-              <ArrowCircleDownIcon v-else size="1.5x" @click="sort('price')"/>
-            </div></th>
-            <th><div class="around">
-              Size
-              <ArrowCircleUpIcon v-if="currentSortDir === 'asc'" size="1.5x" @click="sort('size')"/>
-              <ArrowCircleDownIcon v-else size="1.5x" @click="sort('size')"/>
-            </div></th>
-            <th><div class="around">
-              Tanggal
-              <ArrowCircleUpIcon v-if="currentSortDir === 'asc'" size="1.5x" @click="sort('tgl_parsed')"/>
-              <ArrowCircleDownIcon v-else size="1.5x" @click="sort('tgl_parsed')"/>
-            </div></th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="(p, index) in sortedPages" :key="index">
-            <td>{{ p.uuid |chunkString }}</td>
-            <td>{{p.area_kota | capitalizeEach}}</td>
-            <td>{{p.area_provinsi | capitalizeEach}}</td>
-            <td>{{p.komoditas | capitalizeEach}}</td>
-            <td>{{p.price | formatMoney}}</td>
-            <td>{{p.size}}</td>
-            <td>{{p.tgl_parsed | formatDate}}</td>
-          </tr>
-          </tbody>
-        </table>
+        <div>
+          <table class="table mobile-optimised">
+            <thead>
+            <tr>
+              <th>
+                <div class="around">
+                  UUID
+                  <ArrowCircleUpIcon v-if="currentSortDir === 'asc' && currentSort === 'uuid'" size="1.5x" @click="sort('uuid')"/>
+                  <ArrowCircleDownIcon v-else-if="currentSortDir === 'desc' && currentSort === 'uuid'" size="1.5x" @click="sort('uuid')"/>
+                  <XCircleIcon v-else @click="sort('uuid')"/>
+                </div>
+              </th>
+              <th>
+                <div class="around">
+                  Area Kota
+                  <ArrowCircleUpIcon v-if="currentSortDir === 'asc' && currentSort === 'area_kota'" size="1.5x" @click="sort('area_kota')"/>
+                  <ArrowCircleDownIcon v-else-if="currentSortDir === 'desc' && currentSort === 'area_kota'" size="1.5x" @click="sort('area_kota')"/>
+                  <XCircleIcon v-else @click="sort('area_kota')"/>
+                </div>
+              </th>
+              <th>
+                <div class="around">
+                  Area Provinsi
+                  <ArrowCircleUpIcon v-if="currentSortDir === 'asc' && currentSort === 'area_provinsi'" size="1.5x" @click="sort('area_provinsi')"/>
+                  <ArrowCircleDownIcon v-else-if="currentSortDir === 'desc' && currentSort === 'area_provinsi'" size="1.5x" @click="sort('area_provinsi')"/>
+                  <XCircleIcon v-else @click="sort('area_provinsi')"/>
+                </div>
+              </th>
+              <th>
+                <div class="around">
+                  Komoditas
+                  <ArrowCircleUpIcon v-if="currentSortDir === 'asc' && currentSort === 'komoditas'" size="1.5x" @click="sort('komoditas')"/>
+                  <ArrowCircleDownIcon v-else-if="currentSortDir === 'desc' && currentSort === 'komoditas'" size="1.5x" @click="sort('komoditas')"/>
+                  <XCircleIcon v-else @click="sort('komoditas')"/>
+                </div>
+              </th>
+              <th><div class="around">
+                Harga (Rp)
+                <ArrowCircleUpIcon v-if="currentSortDir === 'asc' && currentSort === 'price'" size="1.5x" @click="sort('price')"/>
+                <ArrowCircleDownIcon v-else-if="currentSortDir === 'desc' && currentSort === 'price'" size="1.5x" @click="sort('price')"/>
+                <XCircleIcon v-else @click="sort('price')"/>
+              </div></th>
+              <th><div class="around">
+                Size
+                <ArrowCircleUpIcon v-if="currentSortDir === 'asc' && currentSort === 'size'" size="1.5x" @click="sort('size')"/>
+                <ArrowCircleDownIcon v-else-if="currentSortDir === 'desc' && currentSort === 'size'" size="1.5x" @click="sort('size')"/>
+                <XCircleIcon v-else @click="sort('size')"/>
+              </div></th>
+              <th><div class="around">
+                Tanggal
+                <ArrowCircleUpIcon v-if="currentSortDir === 'asc' && currentSort === 'tgl_parsed'" size="1.5x" @click="sort('tgl_parsed')"/>
+                <ArrowCircleDownIcon v-else-if="currentSortDir === 'desc' && currentSort === 'tgl_parsed'" size="1.5x" @click="sort('tgl_parsed')"/>
+                <XCircleIcon v-else @click="sort('tgl_parsed')"/>
+              </div></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(p, index) in sortedPages" :key="index">
+              <td>{{ p.uuid |chunkString }}</td>
+              <td>{{p.area_kota | capitalizeEach}}</td>
+              <td>{{p.area_provinsi | capitalizeEach}}</td>
+              <td>{{p.komoditas | capitalizeEach}}</td>
+              <td>{{p.price | formatMoney}}</td>
+              <td>{{p.size}}</td>
+              <td>{{p.tgl_parsed | formatDate}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div v-else class="mobile__view">
         <div>
@@ -104,7 +113,7 @@
         <div class="label">
           <span>Sort : </span>
         </div>
-        <div>
+        <div class="container">
           <label>
             <select v-model="query.filter">
               <option value="" disabled selected>Pilih Kolom</option>
@@ -143,7 +152,7 @@
             <money v-model="query.search"></money>
           </label>
           <label v-else>
-            <input v-model="query.search" type="text" class="dv-header-input" placeholder="Masukan kata kunci" :disabled="filtered === true">
+            <input v-model="query.search" type="text" class="dv-header-input" placeholder="Masukan kata kunci" :disabled="filtered === true" maxlength="36">
           </label>
           <button v-if="filtered === false" :class="disabled === true ? 'bg-disable' : 'bg-primary' " :disabled="!query.search && !query.search_column" @click="search">Search</button>
           <button v-else class="bg-secondary" @click="searchCancel">Cancel</button>
@@ -194,6 +203,7 @@ import {
   ArrowCircleDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  XCircleIcon,
 } from '@vue-hero-icons/solid'
 import { dateString } from '@/services/helper'
 export default {
@@ -202,6 +212,7 @@ export default {
     ArrowCircleDownIcon,
     ChevronLeftIcon,
     ChevronRightIcon,
+    XCircleIcon,
     Modal,
     DatePicker,
     Loading,
@@ -276,8 +287,22 @@ export default {
         .sort((a, b) => {
           let modifier = 1
           if (this.currentSortDir === 'desc') modifier = -1
-          if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier
-          if (a[this.currentSort] > b[this.currentSort]) return modifier
+          if (a[this.currentSort] && b[this.currentSort]) {
+            if (
+              a[this.currentSort].toString().toLowerCase() <
+              b[this.currentSort].toString().toLowerCase()
+            )
+              return -1 * modifier
+            if (
+              a[this.currentSort].toString().toLowerCase() >
+              b[this.currentSort].toString().toLowerCase()
+            )
+              return modifier
+          } else if (!a[this.currentSort]) {
+            return 1
+          } else if (!b[this.currentSort]) {
+            return -1
+          }
           return 0
         })
         .filter((row, index) => {
