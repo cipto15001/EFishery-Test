@@ -34,7 +34,7 @@
               <div class="field">
                 <div class="control">
                   <label>
-                    <input v-model="form.komoditas" class="input" type="text" placeholder="komoditas"/>
+                    <input v-model="form.komoditas" class="input" type="text" placeholder="komoditas" maxlength="32"/>
                   </label>
                 </div>
               </div>
