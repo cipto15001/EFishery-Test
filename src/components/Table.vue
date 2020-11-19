@@ -245,12 +245,15 @@ export default {
     }
   },
   computed: {
+    // function to return condition button search
     disabled() {
       return !this.query.search || !this.query.search_column
     },
+    // conttroller to limit pageSize item rendered for mobile 5 item and desktop 12 item
     pageSize() {
       return this.$vssWidth >= 601 ? 12 : 5
     },
+    // function to geup area_kota to area_provinsi
     areaGroup() {
       const data = this.optionArea
       const key = 'province'
@@ -259,6 +262,7 @@ export default {
         return rv
       }, {})
     },
+    // logic to search data using substring query to get matching string not same string. example search keyword 'ikan' can get 'ikan tuna', 'ikan teri'
     filteredRows() {
       return this.posts.filter((row) => {
         if (row[this.query.search_column]) {
@@ -281,6 +285,7 @@ export default {
         }
       })
     },
+    // logic to sort data from request default area_kota asc
     sortedPages() {
       const posts = this.posts
       return posts
@@ -318,15 +323,18 @@ export default {
     },
   },
   created() {
+    // initial data from thid party api
     this.getPosts()
     this.getArea()
     this.getSize()
   },
   methods: {
     uuidv4,
+    //getting emit data from child
     setCreatedField(value) {
       this.createField = value
     },
+    // get list data to post in table
     getPosts() {
       this.isLoading = true
       api('list').then((data) => {
@@ -334,16 +342,19 @@ export default {
         this.isLoading = false
       })
     },
+    // get option area
     getArea() {
       api('option_area').then((data) => {
         this.optionArea = data
       })
     },
+    // get option size
     getSize() {
       api('option_size').then((data) => {
         this.optionSize = data
       })
     },
+    // set total pagination page
     setPages() {
       let numberOfPages = Math.ceil(this.posts.length / this.perPage)
       let pages = []
@@ -352,30 +363,35 @@ export default {
       }
       this.pages = pages
     },
+    // handle sort function
     sort(s) {
       if (s === this.currentSort) {
         this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc'
       }
       this.currentSort = s
     },
+    // handle pagination next page
     nextPage() {
       if (this.currentPage * this.pageSize < this.posts.length) {
         this.page = this.page + 5
         this.currentPage = this.page
       }
     },
+    // handle pagination prev page
     prevPage() {
       if (this.currentPage > 1) {
         this.page = this.page - 5
         this.currentPage = this.page
       }
     },
+    // handle search function
     search() {
       this.currentPage = 1
       this.postsBackup = this.posts
       this.posts = this.filteredRows
       this.filtered = true
     },
+    // handle reset search function
     searchCancel() {
       this.query.search_column = ''
       this.query.search = ''

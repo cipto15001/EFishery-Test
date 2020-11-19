@@ -110,9 +110,11 @@ export default {
     }
   },
   computed: {
+    // verification function to check null form value
     disabled() {
       return !checkEmpty(this.form)
     },
+    // function to generate option area_kota
     cityOption() {
       let cityOptionCleared = []
       if (this.form.area_provinsi) {
@@ -124,6 +126,7 @@ export default {
       }
       return cityOptionCleared
     },
+    // function to remove area_provinsi when have null in area_kota
     areaOption() {
       let areaOptionCleared = []
       for (const [key, value] of Object.entries(this.area)) {
@@ -135,9 +138,11 @@ export default {
     },
   },
   methods: {
+    // emit funciton to close modal
     onClickButton(event) {
       this.$emit('clicked', event)
     },
+    // function to send data
     send() {
       this.isLoading = true
       const payload = {
